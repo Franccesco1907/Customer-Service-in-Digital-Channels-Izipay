@@ -1,0 +1,44 @@
+@import "../../../../scss/global";
+
+.toolbar{
+  background-color: $main;
+}
+
+.mat-sidenav-container{
+  height: calc(100vh - 4rem);
+}
+
+.mat-sidenav{
+  width: 12rem;
+}
+
+.mat-list-item{
+  padding: 0.5rem;
+}
+
+.nav-item{
+  display: flex;
+  align-items: center;
+}
+
+.content{
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 2rem;
+}
+
+.icon{
+  margin-right: 0.5rem;
+}
+
+.menu-icon{
+  color: white;
+}
+
+.logo{
+  height: 2rem;
+}
+
+.icon, .option-name{
+  color: $auxiliar;
+}

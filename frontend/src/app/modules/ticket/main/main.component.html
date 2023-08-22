@@ -1,2 +1,27 @@
-<p>main works!</p>
-<router-outlet></router-outlet>
+<mat-toolbar class="toolbar">
+  <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon class="menu-icon">menu</mat-icon>
+  </button>
+  <span class="logo-container">
+    <img src="https://iziweb001b.s3.amazonaws.com/webresources/img/logo.png" alt="Izi Logo - www.izipay.pe" class="logo">
+  </span>
+</mat-toolbar>
+<mat-sidenav-container class="mat-sidenav-container">
+  <mat-sidenav #snav class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
+  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-nav-list>
+      <mat-list-item [routerLink]="navOption.route"
+      *ngFor="let navOption of fillerNav" class="mat-list-item">
+        <span class="nav-item">
+          <mat-icon class="icon">{{navOption.icon}}</mat-icon>
+          <a class="option-name">{{navOption.name}}</a>
+        </span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,28 @@
+@import "../../../../scss/global";
+
+.ticket-list-container{
+  border-radius: 1rem;
+  background-color: #FFFFFF;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th{
+  text-align: center;
+}
+
+.th, .header-tr{
+  background: $secondary;
+  color: white;
+}
+
+h2{
+  color: $auxiliar;
+}
