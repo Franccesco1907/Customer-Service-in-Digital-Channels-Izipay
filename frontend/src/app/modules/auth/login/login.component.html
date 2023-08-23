@@ -1,0 +1,57 @@
+<section class="login-main">
+  <div class="login-card">
+    <div class="login-card-top">
+      <img width="150px"
+      class="logo"
+      src="https://www.izipay.pe/_nuxt/dist/img/logo-izipay.6fa8349.png" alt="izipay-logo"/>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="login(form)" class="login-card-content">
+      <div class="incorrect-data" *ngIf="tokenValidate" appearance="fill">
+        <mat-icon class="close-icon" (click)="toggle()">close</mat-icon>
+        <span *ngIf="credential.email !== '' && credential.password !== ''" class="error-message">El usuario o la contraseña es incorrecta</span>
+        <span *ngIf="credential.email == '' || credential.password == ''" class="error-message">Rellena los campos faltantes</span>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario</mat-label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="form-control"
+            matInput
+            [(ngModel)]="credential.email"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="form-control"
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [(ngModel)]="credential.password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+            type="button"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button class="login-btn" mat-button type="submit">
+          <nav class="login-text">Ingresar</nav>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+

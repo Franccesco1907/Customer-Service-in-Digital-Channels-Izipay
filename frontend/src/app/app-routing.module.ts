@@ -7,6 +7,16 @@ const routes: Routes = [
     loadChildren: () =>
     import('./modules/ticket/ticket.module').then((m) => m.TicketModule),
   },
+  {
+    path: 'auth',
+    loadChildren: () =>
+    import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
