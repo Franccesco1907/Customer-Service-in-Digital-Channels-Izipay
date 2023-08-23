@@ -1,5 +1,9 @@
 {
   "conventionalCommits.scopes": [
-    "frontend"
+    "frontend",
+    "ms-auth",
+    "ms-ia",
+    "ms-notifications",
+    "ms-queries"
   ]
 }
