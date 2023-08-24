@@ -18,17 +18,18 @@ export class QueriesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.queriesService.findOne(+id);
+  findOne(@Param('id') _id: string) {
+    return this.queriesService.findOne(_id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQueryDto: UpdateQueryDto) {
-    return this.queriesService.update(+id, updateQueryDto);
+  update(@Param('id') _id: string, @Body() updateQueryDto: UpdateQueryDto) {
+    return this.queriesService.update(_id, updateQueryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.queriesService.remove(+id);
+  remove(@Param('id') _id: string) {
+    return this.queriesService.remove(_id);
   }
 }
+
