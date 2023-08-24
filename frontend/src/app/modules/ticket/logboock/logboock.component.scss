@@ -53,3 +53,21 @@ h3, .name, .state{
     }
   }
 }
+
+@media screen and (max-width : 750px)
+{
+  .derive-container{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width : 650px)
+{
+  .comment-container{
+    grid-template-columns: 6rem 1fr;
+    .status-container{
+      justify-self: center;
+    }
+  }
+}
+

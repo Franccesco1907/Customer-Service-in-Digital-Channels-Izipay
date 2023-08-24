@@ -34,3 +34,10 @@ h3{
     resize: none;
   }
 }
+
+@media screen and (max-width : 750px)
+{
+  .button-container{
+    justify-content: start;
+  }
+}

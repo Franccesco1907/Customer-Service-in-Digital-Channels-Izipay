@@ -71,3 +71,27 @@ td, th{
   cursor: pointer;
   background-color: rgba($color: #000000, $alpha: 0.05);
 }
+
+.table-container{
+  overflow: auto;
+}
+
+.mat-elevation-z8{
+  min-width: 650px;
+}
+
+@media screen and (max-width : 900px)
+{
+  .filters{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width : 450px)
+{
+  .records{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

@@ -53,3 +53,10 @@
   font-weight: bold;
   color: $secondary-dark;
 }
+
+@media screen and (max-width : 470px)
+{
+  .feature{
+    grid-template-rows: 12rem 5rem 13rem;
+  }
+}
