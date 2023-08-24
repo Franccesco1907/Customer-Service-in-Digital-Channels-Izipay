@@ -1,0 +1,51 @@
+@import "../../../../scss/global";
+
+.customer-service{
+  background: linear-gradient(45deg, $secondary-dark, $secondary);
+  height: 4rem;
+  border-radius: 0.5rem;
+  display: grid;
+  place-content: center;
+}
+
+.title{
+  font-weight: bold;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.customer-service-features{
+  padding: 2rem;
+}
+
+.information{
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.feature{
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 12rem 3rem 10rem;
+  justify-items: center;
+  background: #FFFFFF;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 27rem;
+  .icon-container{
+    height: 10rem;
+    text-align: center;
+    .icon{
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.feature-title{
+  font-weight: bold;
+  color: $secondary-dark;
+}

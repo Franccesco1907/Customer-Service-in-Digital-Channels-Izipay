@@ -1,10 +1,17 @@
 <mat-toolbar class="toolbar">
-  <button mat-icon-button (click)="snav.toggle()">
-    <mat-icon class="menu-icon">menu</mat-icon>
-  </button>
-  <span class="logo-container">
-    <img src="https://iziweb001b.s3.amazonaws.com/webresources/img/logo.png" alt="Izi Logo - www.izipay.pe" class="logo">
-  </span>
+  <div class="app-title">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon class="menu-icon">menu</mat-icon>
+    </button>
+    <span class="logo-container">
+      <img src="https://iziweb001b.s3.amazonaws.com/webresources/img/logo.png" alt="Izi Logo - www.izipay.pe" class="logo">
+    </span>
+  </div>
+  <div class="options">
+    <button mat-icon-button class="user-button">
+    <mat-icon class="user-icon">person</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 <mat-sidenav-container class="mat-sidenav-container">
   <mat-sidenav #snav class="mat-sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -15,6 +22,12 @@
         <span class="nav-item">
           <mat-icon class="icon">{{navOption.icon}}</mat-icon>
           <a class="option-name">{{navOption.name}}</a>
+        </span>
+      </mat-list-item>
+      <mat-list-item class="mat-list-item logout" (click)="logout()">
+        <span class="nav-item">
+          <mat-icon class="icon">exit_to_app</mat-icon>
+          <a class="option-name">Salir</a>
         </span>
       </mat-list-item>
     </mat-nav-list>

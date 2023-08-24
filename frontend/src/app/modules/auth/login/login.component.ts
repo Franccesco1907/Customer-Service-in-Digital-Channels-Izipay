@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
     password: '',
   };
 
-  URL_HOME = '/ticket';
+  URL_HOME = '/home';
   tokenValidate = false;
 
   constructor(private router: Router) {}

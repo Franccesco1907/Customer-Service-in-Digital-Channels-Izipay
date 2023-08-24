@@ -1,0 +1,17 @@
+<div class="container">
+  <section class="customer-service">
+      <h1 class="title">Servicio al cliente</h1>
+  </section>
+  <section class="customer-service-features">
+    <h2 class="subtitle">Características</h2>
+    <div class="information">
+      <div class="feature" *ngFor="let feature of features">
+          <div class="icon-container">
+            <img src="{{feature.img}}" alt="{{feature.title}} icon" class="icon">
+          </div>
+          <h3 class="feature-title">{{feature.title}}</h3>
+          <p>{{feature.description}}</p>
+      </div>
+    </div>
+  </section>
+</div>
