@@ -1,0 +1,44 @@
+@import "../../../../scss/global";
+
+h2{
+  font-weight: bold;
+}
+
+.consult-information{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ticket-information{
+  background: #FFFFFF;
+  padding: 1rem;
+  border-radius: .5rem;
+}
+
+.consult-container{
+  background: #FFFFFF;
+  padding: 1rem;
+  border-radius: .5rem;
+}
+
+.information-container{
+  padding: 1rem;
+  .section{
+    color: $auxiliar;
+  }
+  .information{
+    display: block;
+    padding: 1rem;
+    border: 1px solid $auxiliar;
+    border-radius: .25rem;
+  }
+}
+
+.consult-information-container{
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 1.25rem 1fr;
+  height: 100%;
+}

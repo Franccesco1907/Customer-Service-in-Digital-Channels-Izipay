@@ -2,16 +2,16 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { Ticket } from 'src/app/interfaces/ticket-interface';
-import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 
 const ELEMENT_DATA: Ticket[] = [
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
-  {DNI: 746413254, phoneNumber: 987456123, name: 'Angel', state: 'H'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
+  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
 ];
 
 @Component({
@@ -20,13 +20,29 @@ const ELEMENT_DATA: Ticket[] = [
   styleUrls: ['./ticket-list.component.scss'],
 })
 export class TicketListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['DNI', 'phoneNumber', 'name', 'state', 'detail'];
+  displayedColumns: string[] = ['id','DNI', 'name', 'date', 'priority', 'state'];
+  stateOptions: any[] = [
+    {id: 1, value: 'Pendiente'},
+    {id: 2, value: 'En progreso'},
+    {id: 3, value: 'Terminado'},
+  ];
+
+  priorityOptions: any[] = [
+    {id: 1, value: 'Alta'},
+    {id: 2, value: 'Media'},
+    {id: 3, value: 'Baja'},
+  ]
+
   dataSource = new MatTableDataSource<Ticket>;
+
+  quantity: number = 0 ;
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
+    this.quantity = ELEMENT_DATA.length;
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
   }
 

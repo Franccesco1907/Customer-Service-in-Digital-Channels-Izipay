@@ -1,0 +1,34 @@
+<div class="container">
+  <h3>Bitácora</h3>
+  <section class="comments">
+    <div class="comment-container" *ngFor="let comment of comments">
+        <div class="icon-container">
+           <mat-icon class="icon">person_outline</mat-icon>
+        </div>
+        <div class="comment">
+          <p><span class="name">{{comment.name}}</span> dice :</p>
+          <p>{{comment.comment}}</p>
+        </div>
+        <div class="status-container">
+          <label class="state">{{comment.state}}</label>
+        </div>
+    </div>
+    <div class="derive-container">
+      <mat-form-field>
+        <mat-label>Motivo</mat-label>
+        <input matInput  placeholder="Escribe el motivo para derivar">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Prioridad</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let option of roleOptions" [value]="option.id">
+            {{option.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="derive-button" mat-button>
+        <nav class="derive-button-text">Derivar</nav>
+      </button>
+    </div>
+  </section>
+</div>
