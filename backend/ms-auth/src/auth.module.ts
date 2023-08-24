@@ -8,7 +8,7 @@ import { AllExceptionFilter, LoggingInterceptor, TimeOutInterceptor } from './co
 import { UsersModule } from './users/users.module';
 import * as Joi from 'joi';
 import { JwtModule } from '@nestjs/jwt';
-import { LocalStategy } from './strategies/local.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
@@ -38,7 +38,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   controllers: [AuthController],
   providers: [
     AuthService,
-    LocalStategy, 
+    LocalStrategy, 
     JwtStrategy,
     {
       provide: APP_FILTER,
