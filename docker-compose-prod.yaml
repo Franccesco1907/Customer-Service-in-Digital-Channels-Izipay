@@ -1,0 +1,102 @@
+version: "3.8"
+services:
+  # frontend:
+  #   image: "frontend"
+  #   container_name: "frontend"
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./frontend:/home/node/app
+  #   ports:
+  #     - 4200:4200
+  #   command: npm run start
+  #   networks:
+  #     - app-network
+  ms-auth:
+    image: "ms-auth"
+    container_name: "ms-auth"
+    build:
+      context: ./backend/ms-auth
+      target: production
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./backend/ms-auth:/usr/src/app
+    #   - /usr/src/app/node_modules
+    ports:
+      - 8080:8080
+    env_file:
+      - ./backend/ms-auth/.env
+    # command: npm run start:dev
+    networks:
+      - app-network
+  ms-ia:
+    image: "ms-ia"
+    container_name: "ms-ia"
+    build:
+      context: ./backend/ms-ia
+      target: production
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./backend/ms-ia:/usr/src/app
+    #   - /usr/src/app/node_modules
+    ports:
+      - 8081:8081
+    env_file:
+      - ./backend/ms-ia/.env
+    # command: npm run start:dev
+    networks:
+      - app-network
+  ms-notifications:
+    image: "ms-notifications"
+    container_name: "ms-notifications"
+    build:
+      context: ./backend/ms-notifications
+      target: production
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./backend/ms-notifications:/usr/src/app
+    #   - /usr/src/app/node_modules
+    ports:
+      - 8082:8082
+    env_file:
+      - ./backend/ms-notifications/.env
+    # command: npm run start:dev
+    networks:
+      - app-network
+  ms-queries:
+    image: "ms-queries"
+    container_name: "ms-queries"
+    build:
+      context: ./backend/ms-queries
+      target: production
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./backend/ms-queries:/usr/src/app
+    #   - /usr/src/app/node_modules
+    ports:
+      - 8083:8083
+    env_file:
+      - ./backend/ms-queries/.env
+    # command: npm run start:dev
+    networks:
+      - app-network
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    command: mongod --dbpath /data/db
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-network
+    environment:
+      MONGO_INITDB_DATABASE: digital-channel
+    ports:
+      - 27017:27017
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
