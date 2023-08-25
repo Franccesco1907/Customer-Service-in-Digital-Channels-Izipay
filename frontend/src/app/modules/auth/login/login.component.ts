@@ -1,7 +1,9 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { Credentials } from 'src/app/interfaces/credential';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 
 
@@ -20,14 +22,18 @@ export class LoginComponent implements OnInit{
   URL_HOME = '/home';
   tokenValidate = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private cookieService: CookieService
+    ) {}
 
   ngOnInit(): void {
 
   }
 
   login(form: NgForm) {
-    this.redirectHome();
+    this.send();
   }
 
   toggle(){
@@ -38,5 +44,10 @@ export class LoginComponent implements OnInit{
     this.router.navigate([this.URL_HOME]).catch( error => {
       console.error('Error al navegar a /ticket: ', error);
     })
+  }
+
+  send(){
+    this.loginService.login(this.credential)
+    .subscribe();
   }
 }
