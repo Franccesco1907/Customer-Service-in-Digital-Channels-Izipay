@@ -1,0 +1,14 @@
+export const FACEBOOK_API_URL = "https://graph.facebook.com/v17.0";
+export const FACEBOOK_PAGE_BASE_ID = "me";
+export const FACEBOOK_CONVERSATIONS = "conversations";
+export const FACEBOOK_POSTS = "posts";
+export const FACEBOOK_COMMENTS = "comments"
+export const FACEBOOK_FIELDS = "fields";
+export const FACEBOOK_FIELD_ID = "id";
+export const FACEBOOK_FIELD_FROM = "from";
+export const FACEBOOK_FIELD_MESSAGES = "messages";
+export const FACEBOOK_FIELD_LINK = "link";
+export const FACEBOOK_FIELD_MESSAGE = "message";
+export const FACEBOOK_FIELD_DATECREATION = "created_time";
+export const FACEBOOK_FIELD_ACCESSTOKEN = "access_token";
+export const FACEBOOK_FIELD_MESSAGE_COUNT ="message_count";
