@@ -131,8 +131,7 @@ export class SocialNetworksService {
   }
 
   private async buildAndInsertFacebookConversation(conversation: Conversation): Promise<Types.ObjectId | null>{    
-    const conversationFound = await this.socialNetworkConversationsRepository.findOne({socialNetworkConversationId : conversation.id});
-    console.log(conversation.message_count, conversationFound.messagesCount);
+    const conversationFound = await this.socialNetworkConversationsRepository.findOne({socialNetworkConversationId : conversation.id});    
     if(conversationFound && conversationFound.messagesCount === conversation.message_count) {      
       return null;
     } else if(conversationFound && conversationFound.messagesCount !== conversation.message_count) {

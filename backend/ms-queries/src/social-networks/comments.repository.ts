@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
+import { Connection, FilterQuery, Model } from 'mongoose';
 import { AbstractRepository } from 'src/common/database';
 import { SocialNetworkCommentDocument } from './schemas/comments.schema';
 
@@ -13,5 +13,16 @@ export class SocialNetworkCommentRepository extends AbstractRepository<SocialNet
     @InjectConnection() connection: Connection
   ) {
     super(socialNetworkCommentModel, connection);
+  }
+
+  async findOne(filterQuery: FilterQuery<SocialNetworkCommentDocument>): Promise<SocialNetworkCommentDocument | null>{
+    const document = await this.model.findOne(filterQuery, {}, { lean: true });
+
+    if (!document) {
+      this.logger.warn('Document not found with filterQuery', filterQuery);
+      return null;
+    }
+
+    return document as SocialNetworkCommentDocument;
   }
 }

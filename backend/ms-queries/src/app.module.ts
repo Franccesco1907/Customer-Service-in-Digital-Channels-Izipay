@@ -7,6 +7,7 @@ import { TicketsModule } from './tickets/tickets.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AUTH_SERVICE } from './common/constants';
 import * as Joi from 'joi';
+import { SocialNetworksModule } from './social-networks/social-networks.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import * as Joi from 'joi';
       },
     ]),
     TicketsModule,
-    QueriesModule
+    QueriesModule,
+    SocialNetworksModule
   ],
   controllers: [],
   providers: [
