@@ -19,4 +19,4 @@ FROM nginx:latest
 
 COPY --from=build /usr/local/app/dist/frontend /usr/share/nginx/html
 
-EXPOSE 4200
+EXPOSE 80
