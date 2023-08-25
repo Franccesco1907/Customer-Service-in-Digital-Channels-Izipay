@@ -7,6 +7,7 @@ import { SyncCommentsDto } from './dto/comment/sync-comment.dto';
 import { SyncMessagesDto } from './dto/message/sync-message.dto';
 import { AnswerMessageDto } from './dto/message/answer-message.dto';
 import { AnswerCommentDto } from './dto/comment/answer-comment.dto';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 @Controller('social-networks')
 export class SocialNetworksController {
@@ -73,6 +74,12 @@ export class SocialNetworksController {
     @Body() answerMessageDto: AnswerMessageDto,
   ) {
     console.log("join");
+    return this.socialNetworksService.postFacebookAnswerToMessage(answerMessageDto);
+  }
+
+  @EventPattern('message-fb-answer')
+  answerFbMessage(@Payload() answerMessageDto: AnswerMessageDto) {
+    console.log("HIFB")
     return this.socialNetworksService.postFacebookAnswerToMessage(answerMessageDto);
   }
 }

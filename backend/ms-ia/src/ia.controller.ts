@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { IaService } from './ia.service';
 import { CreateIaDto } from './dto/create-ia.dto';
-import { UpdateIaDto } from './dto/update-ia.dto';
+import { FacebookMessageEntry } from './dto/socialNetworks/fb.messages';
 
 @Controller('ia')
 export class IaController {
@@ -10,5 +10,10 @@ export class IaController {
   @Post()
   create(@Body() createIaDto: CreateIaDto) {
     return this.iaService.processInput(createIaDto.message);
+  }
+
+  @Post('review-message')
+  reviewMessage(@Body() inputFacebookMessage: FacebookMessageEntry) {
+    return this.iaService.processFacebookMessageInput(inputFacebookMessage);
   }
 }
