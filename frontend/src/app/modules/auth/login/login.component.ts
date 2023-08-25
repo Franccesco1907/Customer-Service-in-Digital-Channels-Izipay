@@ -48,6 +48,16 @@ export class LoginComponent implements OnInit{
 
   send(){
     this.loginService.login(this.credential)
-    .subscribe();
+    .subscribe(
+      (response) => {
+        const setCookieHeader = response.headers.get('Set-Cookie');
+        const token = setCookieHeader.split(';')[0].split('=')[1];
+        this.cookieService.set('token', token);
+        this.redirectHome();
+      },
+      (error) => {
+        console.error('Login failed:', error);
+      }
+    );
   }
 }
