@@ -1,14 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { NotificationsModule } from './notifications.module';
 import { ConfigService } from '@nestjs/config';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationsModule);
   app.enableCors();
   const configService = app.get(ConfigService);
-  const port = configService.get<string>('PORT');  
-  await app.listen(port).then(() => {
-    console.log(`Notifications service is running on port ${port}`);
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      host: '0.0.0.0',
+      port: configService.get('PORT'),
+    },
   });
+  await app.startAllMicroservices().then(
+    () => console.log('Notification Microservice is listening')
+  );
 }
 bootstrap();
