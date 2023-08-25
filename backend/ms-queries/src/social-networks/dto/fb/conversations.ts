@@ -22,3 +22,8 @@ export interface From {
     email: string;
     id:    string;
 }
+
+export interface AnswerMessagePost{
+    recipient_id: string;
+    message_id: string;
+}

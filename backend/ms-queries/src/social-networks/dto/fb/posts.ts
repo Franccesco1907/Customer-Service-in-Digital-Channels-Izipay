@@ -19,3 +19,7 @@ export interface From {
     name: string;
     id:   string;
 }
+
+export interface AnswerCommentPost{
+    id: string; //new comment id
+}
