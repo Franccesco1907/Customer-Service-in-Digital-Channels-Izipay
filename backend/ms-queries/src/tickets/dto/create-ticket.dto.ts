@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from "class-validator";
 import { AbstractDocument } from "src/common/database";
 
 export class CreateTicketDto extends AbstractDocument {
@@ -6,17 +6,21 @@ export class CreateTicketDto extends AbstractDocument {
   @IsNotEmpty()
   documentNumber: string;
   @IsString()
-  code: string;
+  @IsNotEmpty()
+  phoneNumber: string;
+  @IsEmail()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
   @IsString()
+  @IsNotEmpty()
+  fullName: string;
+  @IsString()
+  @IsNotEmpty()
   query: string;
   @IsString()
+  @IsNotEmpty()
   priority: string;
-  @IsString()
-  state: string;
-  @IsBoolean()
-  isClosedByIa: boolean;
-  @IsString()
-  solution: string;
   @IsString()
   responsible: string;
 }

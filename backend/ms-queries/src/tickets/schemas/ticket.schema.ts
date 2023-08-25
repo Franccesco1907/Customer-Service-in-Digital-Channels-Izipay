@@ -7,7 +7,13 @@ export class TicketDocument extends AbstractDocument {
   documentNumber: string;
 
   @Prop()
-  code: string;
+  phoneNumber: string;
+
+  @Prop()
+  email: string;
+
+  @Prop()
+  fullName: string;
 
   @Prop()
   query: string;
@@ -16,15 +22,15 @@ export class TicketDocument extends AbstractDocument {
   priority: string;
 
   @Prop()
+  code: number;
+
+  @Prop()
   state: string;
 
-  @Prop()
-  isClosedByIa: boolean;
-
-  @Prop()
+  @Prop({required: false, default: ''})
   solution: string;
 
-  @Prop()
+  @Prop({required: false})
   responsible: string;
 }
 

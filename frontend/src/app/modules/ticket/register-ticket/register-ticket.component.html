@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Registre la consulta</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="inputs-container">
+  <mat-form-field>
+    <mat-label>DNI</mat-label>
+    <input matInput formControlName="DNI" placeholder="DNI" [(ngModel)]="data.documentNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name"  placeholder="Nombre" [(ngModel)]="data.fullName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Correo</mat-label>
+    <input matInput formControlName="email" placeholder="Correo" [(ngModel)]="data.email">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Número de celular</mat-label>
+    <input matInput formControlName="phoneNumber" placeholder="Número de celular" [(ngModel)]="data.phoneNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Responsable</mat-label>
+    <input matInput formControlName="responsible" placeholder="Responsable" [(ngModel)]="data.responsible">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Prioridad</mat-label>
+    <mat-select formControlName="priority" [(ngModel)]="data.priority">
+      <mat-option *ngFor="let option of priorityOptions" [value]="option.value">
+        {{ option.value }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput formControlName="comment"
+    placeholder="Consulta" class="textarea" [(ngModel)]="data.query"></textarea>
+  </mat-form-field>
+  <button mat-button [mat-dialog-close]="data" class="register-button" type="submit" [disabled]="form.invalid" [class.disable]="form.invalid">
+    <nav class="register-button-text">Registrar</nav>
+  </button>
+</form>
+</div>

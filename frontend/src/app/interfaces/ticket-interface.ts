@@ -1,10 +1,26 @@
 export interface Ticket{
-  id: string,
-  DNI: number,
-  name: string,
-  date: Date,
+  _id: string,
+  documentNumber: string,
+  phoneNumber: string,
+  email: string,
+  fullName: string,
+  query: string,
   priority: string,
+  code: number,
   state: string,
+  solution: string,
+  responsible: string,
+  createdAt: string
+}
+
+export interface TicketRegister{
+  documentNumber: string,
+  phoneNumber: string,
+  email: string,
+  fullName: string,
+  query: string,
+  priority: string,
+  responsible: string,
 }
 
 export interface TicketComment{

@@ -3,9 +3,11 @@ import { AuthModule } from './auth.module';
 import { ConfigService } from '@nestjs/config';
 import { Transport } from '@nestjs/microservices';
 import * as cookieParser from 'cookie-parser';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors();
   const configService = app.get(ConfigService);
 

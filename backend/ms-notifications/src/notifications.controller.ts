@@ -9,6 +9,7 @@ export class NotificationsController {
 
   @EventPattern('notify_email')
   async notifyEmail(@Payload() data: NotifyEmailDto) {
+    console.log('Notify Email', data)
     this.notificationsService.notifyEmail(data);
   }
 }

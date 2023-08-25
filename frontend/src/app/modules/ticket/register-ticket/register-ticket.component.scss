@@ -1,0 +1,30 @@
+@import "../../../../scss/global";
+
+.inputs-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  min-width: 25rem;
+}
+
+.register-button{
+  background: $secondary;
+  margin-bottom: 1rem;
+  height: 3.5rem;
+  .register-button-text{
+    color: #FFFFFF;
+  }
+}
+
+.disable{
+  background: $secondary-light;
+  margin-bottom: 1rem;
+  height: 3.5rem;
+  .register-button-text{
+    color: #FFFFFF;
+  }
+}
+
+.textarea{
+  height: 15rem;
+  resize: none;
+}

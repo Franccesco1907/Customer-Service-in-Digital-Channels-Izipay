@@ -1,18 +1,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
-import { Ticket } from 'src/app/interfaces/ticket-interface';
+import { Ticket, TicketRegister } from 'src/app/interfaces/ticket-interface';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { RegisterTicketComponent } from '../register-ticket/register-ticket.component';
+import { TicketService } from 'src/app/services/ticket.service';
 
-const ELEMENT_DATA: Ticket[] = [
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-  {id: '00001000', DNI: 746413254, name: 'Angel', date: new Date(), priority: 'Alta', state: 'En espera'},
-];
 
 @Component({
   selector: 'app-ticket-list',
@@ -26,6 +20,9 @@ export class TicketListComponent implements AfterViewInit {
     {id: 2, value: 'En progreso'},
     {id: 3, value: 'Terminado'},
   ];
+  ticketList: Ticket[] = [];
+
+  newTicket!: TicketRegister;
 
   priorityOptions: any[] = [
     {id: 1, value: 'Alta'},
@@ -41,9 +38,8 @@ export class TicketListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    this.quantity = ELEMENT_DATA.length;
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(public dialog: MatDialog, private ticketService: TicketService) {
+    this.getTickets();
   }
 
   ngAfterViewInit() {
@@ -51,6 +47,14 @@ export class TicketListComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  getTickets(){
+      this.ticketService.getTickets().subscribe(response =>{
+        this.ticketList = response.body;
+        console.log(this.ticketList);
+        this.quantity = this.ticketList.length;
+        this.dataSource = new MatTableDataSource(this.ticketList);
+      })
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -59,4 +63,19 @@ export class TicketListComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RegisterTicketComponent, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.newTicket = result;
+      console.log(this.newTicket);
+      this.ticketService.postTicket(this.newTicket).subscribe(()=>{
+        this.getTickets();
+      });
+    });
+  }
+
 }
