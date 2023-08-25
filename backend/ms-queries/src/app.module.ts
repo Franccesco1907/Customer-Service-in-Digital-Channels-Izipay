@@ -5,7 +5,7 @@ import { AllExceptionFilter, LoggingInterceptor, TimeOutInterceptor } from './co
 import { QueriesModule } from './queries/queries.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVICE } from './common/constants';
+import { AUTH_SERVICE, NOTIFICATIONS_SERVICE } from './common/constants';
 import * as Joi from 'joi';
 import { SocialNetworksModule } from './social-networks/social-networks.module';
 
@@ -18,6 +18,8 @@ import { SocialNetworksModule } from './social-networks/social-networks.module';
         PORT: Joi.number().required(),
         AUTH_PORT: Joi.number().required(),
         MONGODB_URI: Joi.string().required(),
+        NOTIFICATIONS_HOST: Joi.string().required(),
+        NOTIFICATIONS_PORT: Joi.number().required(),
       }),
     }),
     ClientsModule.registerAsync([
@@ -28,6 +30,17 @@ import { SocialNetworksModule } from './social-networks/social-networks.module';
           options: {
             host: configService.get('AUTH_HOST'),
             port: configService.get('AUTH_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+      {
+        name: NOTIFICATIONS_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get('NOTIFICATIONS_HOST'),
+            port: configService.get('NOTIFICATIONS_PORT'),
           },
         }),
         inject: [ConfigService],

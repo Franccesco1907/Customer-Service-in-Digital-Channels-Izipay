@@ -5,6 +5,8 @@ import { CreateCommentDto } from './dto/comment/create-comment.dto';
 import { CreateMessageDto } from './dto/message/create-message.dto';
 import { SyncCommentsDto } from './dto/comment/sync-comment.dto';
 import { SyncMessagesDto } from './dto/message/sync-message.dto';
+import { AnswerMessageDto } from './dto/message/answer-message.dto';
+import { AnswerCommentDto } from './dto/comment/answer-comment.dto';
 
 @Controller('social-networks')
 export class SocialNetworksController {
@@ -34,6 +36,14 @@ export class SocialNetworksController {
     return this.socialNetworksService.syncComments(syncCommentDto);
   }
 
+  @Post('comment-fb/answer')
+  answerFacebookComment(
+    @Body() answerCommentDto: AnswerCommentDto,
+  ) {
+    console.log("join");
+    return this.socialNetworksService.postFacebookAnswerToComment(answerCommentDto);
+  }
+
   @Post('message-fb')
   createFacebookMessage(
     @Body() createMessageDto: CreateMessageDto,
@@ -56,5 +66,13 @@ export class SocialNetworksController {
     @Body() syncMessageDto: SyncMessagesDto,
   ) {
     return this.socialNetworksService.syncMessages(syncMessageDto);
+  }
+
+  @Post('message-fb/answer')
+  answerFacebookMessage(
+    @Body() answerMessageDto: AnswerMessageDto,
+  ) {
+    console.log("join");
+    return this.socialNetworksService.postFacebookAnswerToMessage(answerMessageDto);
   }
 }

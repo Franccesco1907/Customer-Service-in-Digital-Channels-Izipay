@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { SocialNetworkCommentRepository } from './comments.repository';
 import { SocialNetworkMessageRepository } from './messages.repository';
 import { CreateCommentDto } from './dto/comment/create-comment.dto';
@@ -6,14 +6,16 @@ import { CreateMessageDto } from './dto/message/create-message.dto';
 import { SyncCommentsDto } from './dto/comment/sync-comment.dto';
 import { SyncMessagesDto } from './dto/message/sync-message.dto';
 import { HttpService } from '@nestjs/axios';
-import { catchError, firstValueFrom, Observable } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
-import { FACEBOOK_API_URL, FACEBOOK_COMMENTS, FACEBOOK_CONVERSATIONS, FACEBOOK_FIELDS, FACEBOOK_FIELD_ACCESSTOKEN, FACEBOOK_FIELD_DATECREATION, FACEBOOK_FIELD_FROM, FACEBOOK_FIELD_ID, FACEBOOK_FIELD_LINK, FACEBOOK_FIELD_MESSAGE, FACEBOOK_FIELD_MESSAGES, FACEBOOK_FIELD_MESSAGE_COUNT, FACEBOOK_PAGE_BASE_ID, FACEBOOK_POSTS } from './constants/fb-uri';
-import { FacebookRestResponse, Post, Comment } from './dto/fb/posts';
-import { Conversation, Message } from './dto/fb/conversations';
+import { FACEBOOK_API_URL, FACEBOOK_ATTR_TEXT, FACEBOOK_COMMENTS, FACEBOOK_CONVERSATIONS, FACEBOOK_FIELDS, FACEBOOK_FIELD_ACCESSTOKEN, FACEBOOK_FIELD_DATECREATION, FACEBOOK_FIELD_FROM, FACEBOOK_FIELD_ID, FACEBOOK_FIELD_LINK, FACEBOOK_FIELD_MESSAGE, FACEBOOK_FIELD_MESSAGES, FACEBOOK_FIELD_MESSAGE_COUNT, FACEBOOK_MESSAGE_TYPE, FACEBOOK_MESSAGE_TYPE_RESPONSE, FACEBOOK_PAGE_BASE_ID, FACEBOOK_POSTS, FACEBOOK_RECIPIENT } from './constants/fb-uri';
+import { FacebookRestResponse, Post, Comment, AnswerCommentPost } from './dto/fb/posts';
+import { AnswerMessagePost, Conversation, Message } from './dto/fb/conversations';
 import { SocialNetworkConversationsRepository } from './conversations.repository';
 import { CreateConversationDto } from './dto/message/create-conversation.dto';
-import { ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import { AnswerMessageDto } from './dto/message/answer-message.dto';
+import { AnswerCommentDto } from './dto/comment/answer-comment.dto';
 
 @Injectable()
 export class SocialNetworksService {
@@ -87,6 +89,18 @@ export class SocialNetworksService {
           console.error(error.response.data);
           throw `Error on fetching data from: ${apiUrl}`
         }), 
+      ),
+    );
+    return response.data;
+  }
+
+  private async postData<T, TBody>(apiUrl: string, body: TBody): Promise<T> {
+    const response = await firstValueFrom(
+      this.httpService.post(apiUrl, body).pipe(
+        catchError((error: AxiosError) => {
+          console.error(error.response.data);
+          throw `Error posting data to: ${apiUrl}`;
+        }),
       ),
     );
     return response.data;
@@ -188,5 +202,17 @@ export class SocialNetworksService {
     const message = await this.fetchData<Message>(URI); 
     
     return message;   
+  }
+
+  async postFacebookAnswerToComment(answerCommentDto: AnswerCommentDto) {
+    const URI = `${FACEBOOK_API_URL}/${answerCommentDto.socialNetworkCommentId}/${FACEBOOK_COMMENTS}/?${FACEBOOK_FIELD_MESSAGE}=${answerCommentDto.message}&${FACEBOOK_FIELD_ACCESSTOKEN}=${answerCommentDto.token}`;
+    const newCommentInfo = await this.postData<AnswerCommentPost, any>(URI, {});
+    return newCommentInfo;
+  }
+
+  async postFacebookAnswerToMessage(answerMessageDto: AnswerMessageDto) : Promise<AnswerMessagePost>{        
+    const URI = `${FACEBOOK_API_URL}/${FACEBOOK_PAGE_BASE_ID}/${FACEBOOK_FIELD_MESSAGES}?${FACEBOOK_RECIPIENT}={'${FACEBOOK_FIELD_ID}':'${answerMessageDto.userSocialNetworkId}'}&${FACEBOOK_MESSAGE_TYPE}=${FACEBOOK_MESSAGE_TYPE_RESPONSE}&${FACEBOOK_FIELD_MESSAGE}={'${FACEBOOK_ATTR_TEXT}':'${answerMessageDto.message}'}&${FACEBOOK_FIELD_ACCESSTOKEN}=${answerMessageDto.token}`;    
+    const newMessageInfo = await this.postData<AnswerMessagePost, any>(URI, {});
+    return newMessageInfo;    
   }
 }
