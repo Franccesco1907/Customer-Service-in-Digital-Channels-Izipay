@@ -1,18 +1,16 @@
 version: "3.8"
 services:
-  frontend:
-    image: "frontend"
-    container_name: "frontend"
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/home/node/app
-    ports:
-      - 4200:4200
-    command: npm run start
-    networks:
-      - app-network
+  # frontend:
+  #   image: "frontend"
+  #   container_name: "frontend"
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 4200:80
+  #   command: npm run start
+  #   networks:
+  #     - app-network
   ms-auth:
     image: "ms-auth"
     container_name: "ms-auth"
