@@ -2,17 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { TicketsService } from './tickets.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
-import { CurrentUser } from 'src/common/decorators';
-import { JwtAuthGuard } from 'src/common/auth';
 
 @Controller('tickets')
 export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(
-    @Body() createTicketDto: CreateTicketDto,
+    @Body() createTicketDto: CreateTicketDto
   ) {
     return this.ticketsService.create(createTicketDto);
   }
