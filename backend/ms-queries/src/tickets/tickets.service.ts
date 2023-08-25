@@ -4,6 +4,7 @@ import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { TicketsRepository } from './tickets.repository';
 import { NOTIFICATIONS_SERVICE } from 'src/common/constants';
 import { ClientProxy } from '@nestjs/microservices';
+import { TicketDocument } from './schemas/ticket.schema';
 
 @Injectable()
 export class TicketsService {
@@ -12,12 +13,19 @@ export class TicketsService {
     private readonly notificationsService: ClientProxy,
     ) {}
 
-  create(createTicketDto: CreateTicketDto) {
+  async create(createTicketDto: CreateTicketDto) {
     this.notificationsService.emit('notify_email', {
-      email: "franccescojaimesagreda@gmail.com",
-      text: `Se creó el ticket`,
+      email: createTicketDto.email,
+      text: `Se creó el ticket, por favor revisarlo.`,
     });
-    return this.ticketsRepository.create(createTicketDto);
+    const lastTicket = await this.ticketsRepository.getLastTicket();
+    const newCode = lastTicket && lastTicket.code ? lastTicket.code + 1 : 1;
+    return this.ticketsRepository.create({
+      ...createTicketDto,
+      code: newCode,
+      state: 'PENDIENTE',
+      solution: '',
+    });
   }
 
   findAll() {

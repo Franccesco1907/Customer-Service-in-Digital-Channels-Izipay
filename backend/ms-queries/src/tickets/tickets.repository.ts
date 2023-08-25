@@ -14,4 +14,10 @@ export class TicketsRepository extends AbstractRepository<TicketDocument> {
   ) {
     super(ticketModel, connection);
   }
+
+  getLastTicket(): Promise<TicketDocument> {
+    return this.model
+    .findOne({}, {}, { sort: { code: -1 } }) // Ordena por código en orden descendente
+    .exec();
+  }
 }

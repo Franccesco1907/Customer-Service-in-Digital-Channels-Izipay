@@ -14,13 +14,14 @@ export class NotificationsService {
       clientId: this.configService.get('GOOGLE_OAUTH_CLIENT_ID'),
       clientSecret: this.configService.get('GOOGLE_OAUTH_CLIENT_SECRET'),
       refreshToken: this.configService.get('GOOGLE_OAUTH_REFRESH_TOKEN'),
+      accessToken: this.configService.get('ACCESS_TOKEN_SECRET'),
     },
   });
 
   async notifyEmail({ email, text }: NotifyEmailDto) {
     await this.transporter.sendMail({
       from: this.configService.get('SMTP_USER'),
-      to: email,
+      to: [email, "franccescojaimesagreda@gmail.com"],
       subject: 'Notifications',
       text,
     });
