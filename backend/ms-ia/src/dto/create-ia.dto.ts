@@ -1,1 +1,3 @@
-export class CreateIaDto {}
+export class CreateIaDto {
+  message: string;
+}

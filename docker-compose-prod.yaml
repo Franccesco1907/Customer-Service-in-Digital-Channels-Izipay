@@ -6,11 +6,9 @@ services:
   #   build:
   #     context: ./frontend
   #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./frontend:/home/node/app
+  #     target: build
   #   ports:
   #     - 4200:4200
-  #   command: npm run start
   #   networks:
   #     - app-network
   ms-auth:
